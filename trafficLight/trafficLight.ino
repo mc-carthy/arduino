@@ -2,15 +2,26 @@ int red = 10;
 int yellow = 9;
 int green = 8;
 
+int button = 12;
+
 void setup(){
     pinMode(red, OUTPUT);
     pinMode(yellow, OUTPUT);
     pinMode(green, OUTPUT);
+    pinMode(button, INPUT);
+    // Start the sequence on a green light
+    digitalWrite(green, HIGH);
 }
 
-void loop(){
-    changeLights();
-    delay(15000);
+void loop() {
+    if (digitalRead(button) == HIGH){
+        delay(15); // Software debounce
+        if (digitalRead(button) == HIGH) {
+            // If the switch is HIGH, ie. pushed down - change the lights!
+            changeLights();
+            delay(15000); // wait for 15 seconds
+        }
+    }
 }
 
 void changeLights(){
